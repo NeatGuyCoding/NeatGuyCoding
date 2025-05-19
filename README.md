@@ -92,6 +92,8 @@
   ![NumPy](https://img.shields.io/badge/-NumPy-013243?style=flat-square&logo=numpy&logoColor=white)
   ![SciPy](https://img.shields.io/badge/-SciPy-8CAAE6?style=flat-square&logo=scipy&logoColor=white)
   ![Keras](https://img.shields.io/badge/-Keras-D00000?style=flat-square&logo=keras&logoColor=white)
+  ![Flask](https://img.shields.io/badge/-Flask-F12345?style=flat-square&logo=flask&logoColor=white)
+  ![Django](https://img.shields.io/badge/-Django-AC1289?style=flat-square&logo=django&logoColor=white)
   
   <!-- Go 框架 -->
   ![Gin](https://img.shields.io/badge/-Gin-00ADD8?style=flat-square&logo=go&logoColor=white)
@@ -160,6 +162,16 @@
       <td><img alt="Stars" src="https://img.shields.io/github/stars/apache/bookkeeper?style=flat-square&labelColor=343b41"/></td>
       <td><img alt="Forks" src="https://img.shields.io/github/forks/apache/bookkeeper?style=flat-square&labelColor=343b41"/></td>
       <td><a href="https://github.com/apache/bookkeeper/issues?q=author%3ANeatGuyCoding">My Contribution</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/apache/rocketmq">RocketMQ</a></td>
+      <td>Apache RocketMQ is a cloud native messaging and streaming platform, making it simple to build event-driven applications.</td>
+      <td>
+        <img src="https://img.shields.io/badge/-Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white" alt="Java" />
+      </td>
+      <td><img alt="Stars" src="https://img.shields.io/github/stars/apache/rocketmq?style=flat-square&labelColor=343b41"/></td>
+      <td><img alt="Forks" src="https://img.shields.io/github/forks/apache/rocketmq?style=flat-square&labelColor=343b41"/></td>
+      <td><a href="https://github.com/apache/rocketmq/issues?q=author%3ANeatGuyCoding">My Contribution</a></td>
     </tr>
     <tr>
       <td><a href="https://github.com/spring-cloud/spring-cloud-gateway">Spring Cloud Gateway</a></td>
