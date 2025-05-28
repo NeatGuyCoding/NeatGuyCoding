@@ -1,3 +1,4 @@
+
 # 👋 Hello World! NeatGuy is Coding~
 
 <div align="center">
@@ -12,23 +13,166 @@
 
 ## 🛠️ Tech Stack
 
-| Category | Technologies |
-|----------|-------------|
-| Programming Languages | ![Java](https://img.shields.io/badge/-Java-007396?style=flat-square&logo=java&logoColor=white) ![C++](https://img.shields.io/badge/-C++-00599C?style=flat-square&logo=cplusplus&logoColor=white) ![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white) ![Go](https://img.shields.io/badge/-Go-00ADD8?style=flat-square&logo=go&logoColor=white) ![Rust](https://img.shields.io/badge/-Rust-000000?style=flat-square&logo=rust&logoColor=white) ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white) |
-| Row-based Databases | ![MySQL](https://img.shields.io/badge/-MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white) ![Oracle](https://img.shields.io/badge/-Oracle-F80000?style=flat-square&logo=oracle&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-336791?style=flat-square&logo=postgresql&logoColor=white) ![DynamoDB](https://img.shields.io/badge/-DynamoDB-4053D6?style=flat-square&logo=amazon-dynamodb&logoColor=white) |
-| Column-based Databases | ![HBase](https://img.shields.io/badge/-HBase-D22128?style=flat-square&logo=apache&logoColor=white) ![ClickHouse](https://img.shields.io/badge/-ClickHouse-FFCC01?style=flat-square&logo=clickhouse&logoColor=black) |
-| Graph Databases | ![Neo4J](https://img.shields.io/badge/-Neo4J-008CC1?style=flat-square&logo=neo4j&logoColor=white) |
-| Search Engines | ![ElasticSearch](https://img.shields.io/badge/-ElasticSearch-005571?style=flat-square&logo=elasticsearch&logoColor=white) |
-| Cache & NoSQL | ![Redis](https://img.shields.io/badge/-Redis-DC382D?style=flat-square&logo=redis&logoColor=white) ![Cassandra](https://img.shields.io/badge/-Cassandra-1287B1?style=flat-square&logo=apache-cassandra&logoColor=white) |
-| Data Lake & Warehouse | ![Hive](https://img.shields.io/badge/-Hive-FDEE21?style=flat-square&logo=apache-hive&logoColor=black) ![Doris](https://img.shields.io/badge/-Doris-00BFFF?style=flat-square&logo=apache&logoColor=white) ![Starrocks](https://img.shields.io/badge/-Starrocks-0078D4?style=flat-square&logo=starrocks&logoColor=white) ![Druid](https://img.shields.io/badge/-Druid-29F1FB?style=flat-square&logo=apache-druid&logoColor=black) ![Pinot](https://img.shields.io/badge/-Pinot-E95420?style=flat-square&logo=apache&logoColor=white) |
-| Vector Databases | ![Pinecone](https://img.shields.io/badge/-Pinecone-000000?style=flat-square&logo=pinecone&logoColor=white) ![Qdrant](https://img.shields.io/badge/-Qdrant-5A29E4?style=flat-square&logo=qdrant&logoColor=white) ![Weaviate](https://img.shields.io/badge/-Weaviate-3F51B5?style=flat-square&logo=weaviate&logoColor=white) |
-| Message Queues | ![RocketMQ](https://img.shields.io/badge/-RocketMQ-D77310?style=flat-square&logo=apache-rocketmq&logoColor=white) ![Kafka](https://img.shields.io/badge/-Kafka-231F20?style=flat-square&logo=apache-kafka&logoColor=white) ![Pulsar](https://img.shields.io/badge/-Pulsar-188FFF?style=flat-square&logo=apache-pulsar&logoColor=white) |
-| DevOps | ![Kubernetes](https://img.shields.io/badge/-Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white) ![Helm](https://img.shields.io/badge/-Helm-0F1689?style=flat-square&logo=helm&logoColor=white) ![ArgoCD](https://img.shields.io/badge/-ArgoCD-EF7B4D?style=flat-square&logo=argo&logoColor=white) ![Jenkins](https://img.shields.io/badge/-Jenkins-D24939?style=flat-square&logo=jenkins&logoColor=white) ![GitLab](https://img.shields.io/badge/-GitLab-FCA121?style=flat-square&logo=gitlab&logoColor=white) ![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white) |
-| Cloud Services | ![AWS](https://img.shields.io/badge/-AWS-232F3E?style=flat-square&logo=amazon-aws&logoColor=white) ![Route53](https://img.shields.io/badge/-Route53-8C4FFF?style=flat-square&logo=amazon-aws&logoColor=white) ![ALB/ELB](https://img.shields.io/badge/-ALB/ELB-FF9900?style=flat-square&logo=amazon-aws&logoColor=white) ![S3](https://img.shields.io/badge/-S3-569A31?style=flat-square&logo=amazon-s3&logoColor=white) ![EC2](https://img.shields.io/badge/-EC2-FF9900?style=flat-square&logo=amazon-ec2&logoColor=white) ![RDS](https://img.shields.io/badge/-RDS-527FFF?style=flat-square&logo=amazon-aws&logoColor=white) ![SageMaker](https://img.shields.io/badge/-SageMaker-FF9900?style=flat-square&logo=amazon-aws&logoColor=white) |
-| Java Frameworks | ![Spring](https://img.shields.io/badge/-Spring-6DB33F?style=flat-square&logo=spring&logoColor=white) ![Spring Boot](https://img.shields.io/badge/-Spring%20Boot-6DB33F?style=flat-square&logo=spring-boot&logoColor=white) ![Spring Cloud](https://img.shields.io/badge/-Spring%20Cloud-6DB33F?style=flat-square&logo=spring&logoColor=white) ![Quarkus](https://img.shields.io/badge/-Quarkus-4695EB?style=flat-square&logo=quarkus&logoColor=white) ![MyBatis](https://img.shields.io/badge/-MyBatis-000000?style=flat-square&logo=mybatis&logoColor=white) ![Netty](https://img.shields.io/badge/-Netty-2C2D72?style=flat-square&logo=netty&logoColor=white) |
-| Python Frameworks | ![Celery](https://img.shields.io/badge/-Celery-37814A?style=flat-square&logo=celery&logoColor=white) ![SQLAlchemy](https://img.shields.io/badge/-SQLAlchemy-D71F00?style=flat-square&logo=sqlalchemy&logoColor=white) ![Pydantic](https://img.shields.io/badge/-Pydantic-E92063?style=flat-square&logo=pydantic&logoColor=white) ![NumPy](https://img.shields.io/badge/-NumPy-013243?style=flat-square&logo=numpy&logoColor=white) ![SciPy](https://img.shields.io/badge/-SciPy-8CAAE6?style=flat-square&logo=scipy&logoColor=white) ![Keras](https://img.shields.io/badge/-Keras-D00000?style=flat-square&logo=keras&logoColor=white) ![Flask](https://img.shields.io/badge/-Flask-F12345?style=flat-square&logo=flask&logoColor=white) ![Django](https://img.shields.io/badge/-Django-AC1289?style=flat-square&logo=django&logoColor=white) |
-| Go Frameworks | ![Gin](https://img.shields.io/badge/-Gin-00ADD8?style=flat-square&logo=go&logoColor=white) ![Kratos](https://img.shields.io/badge/-Kratos-00ADD8?style=flat-square&logo=go&logoColor=white) ![SQLX](https://img.shields.io/badge/-SQLX-00ADD8?style=flat-square&logo=go&logoColor=white) ![Cobra](https://img.shields.io/badge/-Cobra-00ADD8?style=flat-square&logo=go&logoColor=white) ![Testify](https://img.shields.io/badge/-Testify-00ADD8?style=flat-square&logo=go&logoColor=white) |
-| Frontend Frameworks | ![Next.js](https://img.shields.io/badge/-Next.js-000000?style=flat-square&logo=next.js&logoColor=white) ![React](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=black) ![TailwindCSS](https://img.shields.io/badge/-TailwindCSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white) ![HeadlessUI](https://img.shields.io/badge/-HeadlessUI-66E3FF?style=flat-square&logo=headlessui&logoColor=black) ![Lexical](https://img.shields.io/badge/-Lexical-61DAFB?style=flat-square&logo=react&logoColor=black) ![Vue.js](https://img.shields.io/badge/-Vue.js-4FC08D?style=flat-square&logo=vue.js&logoColor=white) |
+<style>
+  img {
+    vertical-align: middle;
+    margin-right: 5px;
+    display: inline-block;
+  }
+</style>
+
+<table class="tech-table">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Technologies</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="category-column">Programming Languages</td>
+      <td class="technologies-column">
+        <img src="https://img.shields.io/badge/-Java-007396?style=flat-square&logo=java&logoColor=white" alt="Java">
+        <img src="https://img.shields.io/badge/-C++-00599C?style=flat-square&logo=cplusplus&logoColor=white" alt="C++">
+        <img src="https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
+        <img src="https://img.shields.io/badge/-Go-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Go">
+        <img src="https://img.shields.io/badge/-Rust-000000?style=flat-square&logo=rust&logoColor=white" alt="Rust">
+        <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript">
+        <img src="https://img.shields.io/badge/-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript">
+      </td>
+    </tr>
+    <tr>
+      <td class="category-column">Row-based Databases</td>
+      <td class="technologies-column">
+        <img src="https://img.shields.io/badge/-MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL">
+        <img src="https://img.shields.io/badge/-Oracle-F80000?style=flat-square&logo=oracle&logoColor=white" alt="Oracle">
+        <img src="https://img.shields.io/badge/-PostgreSQL-336791?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL">
+        <img src="https://img.shields.io/badge/-DynamoDB-4053D6?style=flat-square&logo=amazon-dynamodb&logoColor=white" alt="DynamoDB">
+      </td>
+    </tr>
+    <tr>
+      <td class="category-column">Column-based Databases</td>
+      <td class="technologies-column">
+        <img src="https://img.shields.io/badge/-HBase-D22128?style=flat-square&logo=apache&logoColor=white" alt="HBase">
+        <img src="https://img.shields.io/badge/-ClickHouse-FFCC01?style=flat-square&logo=clickhouse&logoColor=black" alt="ClickHouse">
+      </td>
+    </tr>
+    <tr>
+      <td class="category-column">Graph Databases</td>
+      <td class="technologies-column">
+        <img src="https://img.shields.io/badge/-Neo4J-008CC1?style=flat-square&logo=neo4j&logoColor=white" alt="Neo4J">
+      </td>
+    </tr>
+    <tr>
+      <td class="category-column">Search Engines</td>
+      <td class="technologies-column">
+        <img src="https://img.shields.io/badge/-ElasticSearch-005571?style=flat-square&logo=elasticsearch&logoColor=white" alt="ElasticSearch">
+      </td>
+    </tr>
+    <tr>
+      <td class="category-column">Cache & NoSQL</td>
+      <td class="technologies-column">
+        <img src="https://img.shields.io/badge/-Redis-DC382D?style=flat-square&logo=redis&logoColor=white" alt="Redis">
+        <img src="https://img.shields.io/badge/-Cassandra-1287B1?style=flat-square&logo=apache-cassandra&logoColor=white" alt="Cassandra">
+      </td>
+    </tr>
+    <tr>
+      <td class="category-column">Data Lake & Warehouse</td>
+      <td class="technologies-column">
+        <img src="https://img.shields.io/badge/-Hive-FDEE21?style=flat-square&logo=apache-hive&logoColor=black" alt="Hive">
+        <img src="https://img.shields.io/badge/-Doris-00BFFF?style=flat-square&logo=apache&logoColor=white" alt="Doris">
+        <img src="https://img.shields.io/badge/-Starrocks-0078D4?style=flat-square&logo=starrocks&logoColor=white" alt="Starrocks">
+        <img src="https://img.shields.io/badge/-Druid-29F1FB?style=flat-square&logo=apache-druid&logoColor=black" alt="Druid">
+        <img src="https://img.shields.io/badge/-Pinot-E95420?style=flat-square&logo=apache&logoColor=white" alt="Pinot">
+      </td>
+    </tr>
+    <tr>
+      <td class="category-column">Vector Databases</td>
+      <td class="technologies-column">
+        <img src="https://img.shields.io/badge/-Pinecone-000000?style=flat-square&logo=pinecone&logoColor=white" alt="Pinecone">
+        <img src="https://img.shields.io/badge/-Qdrant-5A29E4?style=flat-square&logo=qdrant&logoColor=white" alt="Qdrant">
+        <img src="https://img.shields.io/badge/-Weaviate-3F51B5?style=flat-square&logo=weaviate&logoColor=white" alt="Weaviate">
+      </td>
+    </tr>
+    <tr>
+      <td class="category-column">Message Queues</td>
+      <td class="technologies-column">
+        <img src="https://img.shields.io/badge/-RocketMQ-D77310?style=flat-square&logo=apache-rocketmq&logoColor=white" alt="RocketMQ">
+        <img src="https://img.shields.io/badge/-Kafka-231F20?style=flat-square&logo=apache-kafka&logoColor=white" alt="Kafka">
+        <img src="https://img.shields.io/badge/-Pulsar-188FFF?style=flat-square&logo=apache-pulsar&logoColor=white" alt="Pulsar">
+      </td>
+    </tr>
+    <tr>
+      <td class="category-column">DevOps</td>
+      <td class="technologies-column">
+        <img src="https://img.shields.io/badge/-Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white" alt="Kubernetes">
+        <img src="https://img.shields.io/badge/-Helm-0F1689?style=flat-square&logo=helm&logoColor=white" alt="Helm">
+        <img src="https://img.shields.io/badge/-ArgoCD-EF7B4D?style=flat-square&logo=argo&logoColor=white" alt="ArgoCD">
+        <img src="https://img.shields.io/badge/-Jenkins-D24939?style=flat-square&logo=jenkins&logoColor=white" alt="Jenkins">
+        <img src="https://img.shields.io/badge/-GitLab-FCA121?style=flat-square&logo=gitlab&logoColor=white" alt="GitLab">
+        <img src="https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub">
+      </td>
+    </tr>
+    <tr>
+      <td class="category-column">Cloud Services</td>
+      <td class="technologies-column">
+        <img src="https://img.shields.io/badge/-AWS-232F3E?style=flat-square&logo=amazon-aws&logoColor=white" alt="AWS">
+        <img src="https://img.shields.io/badge/-Route53-8C4FFF?style=flat-square&logo=amazon-aws&logoColor=white" alt="Route53">
+        <img src="https://img.shields.io/badge/-ALB/ELB-FF9900?style=flat-square&logo=amazon-aws&logoColor=white" alt="ALB/ELB">
+        <img src="https://img.shields.io/badge/-S3-569A31?style=flat-square&logo=amazon-s3&logoColor=white" alt="S3">
+        <img src="https://img.shields.io/badge/-EC2-FF9900?style=flat-square&logo=amazon-ec2&logoColor=white" alt="EC2">
+        <img src="https://img.shields.io/badge/-RDS-527FFF?style=flat-square&logo=amazon-aws&logoColor=white" alt="RDS">
+        <img src="https://img.shields.io/badge/-SageMaker-FF9900?style=flat-square&logo=amazon-aws&logoColor=white" alt="SageMaker">
+      </td>
+    </tr>
+    <tr>
+      <td class="category-column">Java Frameworks</td>
+      <td class="technologies-column">
+        <img src="https://img.shields.io/badge/-Spring-6DB33F?style=flat-square&logo=spring&logoColor=white" alt="Spring">
+        <img src="https://img.shields.io/badge/-Spring%20Boot-6DB33F?style=flat-square&logo=spring-boot&logoColor=white" alt="Spring Boot">
+        <img src="https://img.shields.io/badge/-Spring%20Cloud-6DB33F?style=flat-square&logo=spring&logoColor=white" alt="Spring Cloud">
+        <img src="https://img.shields.io/badge/-Quarkus-4695EB?style=flat-square&logo=quarkus&logoColor=white" alt="Quarkus">
+        <img src="https://img.shields.io/badge/-MyBatis-000000?style=flat-square&logo=mybatis&logoColor=white" alt="MyBatis">
+        <img src="https://img.shields.io/badge/-Netty-2C2D72?style=flat-square&logo=netty&logoColor=white" alt="Netty">
+      </td>
+    </tr>
+    <tr>
+      <td class="category-column">Python Frameworks</td>
+      <td class="technologies-column">
+        <img src="https://img.shields.io/badge/-Celery-37814A?style=flat-square&logo=celery&logoColor=white" alt="Celery">
+        <img src="https://img.shields.io/badge/-SQLAlchemy-D71F00?style=flat-square&logo=sqlalchemy&logoColor=white" alt="SQLAlchemy">
+        <img src="https://img.shields.io/badge/-Pydantic-E92063?style=flat-square&logo=pydantic&logoColor=white" alt="Pydantic">
+        <img src="https://img.shields.io/badge/-NumPy-013243?style=flat-square&logo=numpy&logoColor=white" alt="NumPy">
+        <img src="https://img.shields.io/badge/-SciPy-8CAAE6?style=flat-square&logo=scipy&logoColor=white" alt="SciPy">
+        <img src="https://img.shields.io/badge/-Keras-D00000?style=flat-square&logo=keras&logoColor=white" alt="Keras">
+        <img src="https://img.shields.io/badge/-Flask-F12345?style=flat-square&logo=flask&logoColor=white" alt="Flask">
+        <img src="https://img.shields.io/badge/-Django-AC1289?style=flat-square&logo=django&logoColor=white" alt="Django">
+      </td>
+    </tr>
+    <tr>
+      <td class="category-column">Go Frameworks</td>
+      <td class="technologies-column">
+        <img src="https://img.shields.io/badge/-Gin-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Gin">
+        <img src="https://img.shields.io/badge/-Kratos-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Kratos">
+        <img src="https://img.shields.io/badge/-SQLX-00ADD8?style=flat-square&logo=go&logoColor=white" alt="SQLX">
+        <img src="https://img.shields.io/badge/-Cobra-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Cobra">
+        <img src="https://img.shields.io/badge/-Testify-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Testify">
+      </td>
+    </tr>
+    <tr>
+      <td class="category-column">Frontend Frameworks</td>
+      <td class="technologies-column">
+        <img src="https://img.shields.io/badge/-Next.js-000000?style=flat-square&logo=next.js&logoColor=white" alt="Next.js">
+        <img src="https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React">
+        <img src="https://img.shields.io/badge/-TailwindCSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white" alt="TailwindCSS">
+        <img src="https://img.shields.io/badge/-HeadlessUI-66E3FF?style=flat-square&logo=headlessui&logoColor=black" alt="HeadlessUI">
+        <img src="https://img.shields.io/badge/-Lexical-61DAFB?style=flat-square&logo=react&logoColor=black" alt="Lexical">
+        <img src="https://img.shields.io/badge/-Vue.js-4FC08D?style=flat-square&logo=vue.js&logoColor=white" alt="Vue.js">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 ## 👨‍💻 Repository Contributions
 
 | Project | Description | Technologies | Stars | Forks | My Contributions |
