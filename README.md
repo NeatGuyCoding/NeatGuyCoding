@@ -12,14 +12,6 @@
 
 ## 🛠️ Tech Stack
 
-<style>
-  img {
-    vertical-align: middle;
-    margin-right: 5px;
-    display: inline-block;
-  }
-</style>
-
 <table class="tech-table">
   <thead>
     <tr>
