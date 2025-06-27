@@ -214,6 +214,7 @@
 <div align="center">
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=NeatGuyCoding&layout=compact&theme=tokyonight&hide_border=true" alt="Top Languages" height="170"/>
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=NeatGuyCoding&theme=tokyonight&hide_border=true" alt="GitHub Streak" />
+
 </div>
 
 ## 🏆 GitHub Trophies
