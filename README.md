@@ -60,8 +60,6 @@
       <td class="category-column">Graph Databases</td>
       <td class="technologies-column">
         <img src="https://img.shields.io/badge/-Neo4J-008CC1?style=flat-square&logo=neo4j&logoColor=white" alt="Neo4J">
-        <img src="https://img.shields.io/badge/-ArangoDB-DDE072?style=flat-square&logo=arangodb&logoColor=black" alt="ArangoDB">
-        <img src="https://img.shields.io/badge/-JanusGraph-2F4F4F?style=flat-square&logo=apache&logoColor=white" alt="JanusGraph">
       </td>
     </tr>
     <tr>
@@ -69,6 +67,7 @@
       <td class="technologies-column">
         <img src="https://img.shields.io/badge/-ElasticSearch-005571?style=flat-square&logo=elasticsearch&logoColor=white" alt="ElasticSearch">
         <img src="https://img.shields.io/badge/-Solr-D9411E?style=flat-square&logo=apache-solr&logoColor=white" alt="Solr">
+        <img src="https://img.shields.io/badge/-Lucene-D9411F?style=flat-square&logo=apache-lucene&logoColor=black" alt="Lucene">
       </td>
     </tr>
     <tr>
