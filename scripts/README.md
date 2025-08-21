@@ -1,58 +1,64 @@
-# Repository Contributions Update Script
+# Repository Contributions Auto-Updater
 
-This script automatically updates the README.md file with the latest repository contributions from the NeatGuyCoding GitHub account.
+This directory contains scripts to automatically update the README.md file with the latest repository contributions from NeatGuyCoding.
 
-## Features
+## Files
 
-- Automatically detects repositories where NeatGuyCoding has contributed
-- Identifies contribution types (commits, issues, pull requests, forks)
-- Detects technologies used in each repository
-- Updates the contribution table in README.md
-- Adds timestamps for last updates
-- Runs daily via GitHub Actions
+- `update_contributions.py` - Basic script using REST API
+- `update_contributions_advanced.py` - Advanced script using GraphQL API (recommended)
+- `test_script.py` - Test script to verify functionality
+- `README.md` - This documentation file
 
-## How it works
+## How It Works
 
-1. **GitHub Action Trigger**: The script runs automatically every day at 2:00 AM UTC via GitHub Actions
-2. **Contribution Detection**: Uses GitHub API to find repositories where the user has contributed
-3. **Technology Detection**: Analyzes repository files to identify programming languages and frameworks
-4. **README Update**: Replaces the existing contribution table with fresh data
-5. **Auto-commit**: Changes are automatically committed and pushed to the repository
+The system automatically:
 
-## Manual Execution
+1. Fetches contribution data from GitHub API
+2. Processes repository information (stars, forks, languages, descriptions)
+3. Updates the "## 👨‍💻 Repository Contributions" section in README.md
+4. Preserves all other content in the README
 
-You can also run the script manually:
+## GitHub Action
 
-1. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+The `.github/workflows/update-contributions.yml` file sets up an automated workflow that:
 
-2. Set environment variable:
-   ```bash
-   export GITHUB_TOKEN=your_github_token_here
-   ```
+- Runs daily at 2:00 AM UTC
+- Can be triggered manually via workflow_dispatch
+- Updates the README.md file automatically
+- Commits and pushes changes
 
-3. Run the script:
-   ```bash
-   python update_contributions.py
-   ```
+## Setup
 
-## Configuration
+1. Ensure you have a GitHub token with appropriate permissions
+2. The token should be set as `GITHUB_TOKEN` secret in your repository
+3. Install dependencies: `pip install -r requirements.txt`
 
-- **Username**: Change `USERNAME` variable in the script to track different GitHub users
-- **Schedule**: Modify the cron schedule in `.github/workflows/update-contributions.yml`
-- **Contribution Limit**: Adjust the limit in `get_user_contributions()` function (currently 20)
+## Usage
 
-## Requirements
+### Manual Update
+```bash
+python scripts/update_contributions_advanced.py
+```
 
-- Python 3.11+
-- GitHub Personal Access Token with appropriate permissions
-- Required packages: `requests`, `PyGithub`
+### Test Script
+```bash
+python scripts/test_script.py
+```
+
+## Dependencies
+
+- `requests` - For HTTP API calls
+- Standard Python libraries (re, datetime, json, os)
+
+## API Rate Limits
+
+- Unauthenticated: 60 requests/hour
+- Authenticated: 5,000 requests/hour
+- GraphQL: 5,000 requests/hour
 
 ## Notes
 
-- The script respects GitHub API rate limits
-- Only public repositories are accessible
-- Technology detection is based on common configuration files
-- The script automatically handles errors and continues processing other repositories
+- The script only updates the contributions section
+- All other README content remains unchanged
+- Repository data is sorted by contribution count
+- Limited to top 20 repositories to avoid overly long tables

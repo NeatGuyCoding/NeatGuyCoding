@@ -5,14 +5,6 @@ on:
     # 每天凌晨 2 点运行
     - cron: '0 2 * * *'
   workflow_dispatch: # 允许手动触发
-  push:
-    paths:
-      - 'scripts/**'
-      - '.github/workflows/update-contributions.yml'
-
-env:
-  PYTHON_VERSION: '3.11'
-  MAX_ATTEMPTS: 3
 
 jobs:
   update-contributions:
@@ -21,115 +13,26 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        fetch-depth: 0
-    
+      
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: ${{ env.PYTHON_VERSION }}
-    
-    - name: Cache pip dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('scripts/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-    
+        python-version: '3.11'
+        
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r scripts/requirements.txt
-        pip install requests PyGithub
-    
-    - name: Create backup of README
-      run: |
-        cp README.md README.md.backup
-        echo "Backup created at $(date)"
-    
-    - name: Test script functionality
-      run: |
-        python scripts/test_script.py
-      continue-on-error: true
-    
-    - name: Update README with contributions (Attempt 1)
-      id: update-attempt-1
-      run: |
-        python scripts/update_contributions_advanced.py
+        pip install -r requirements.txt
+        
+    - name: Update README contributions
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      continue-on-error: true
-    
-    - name: Update README with contributions (Attempt 2)
-      id: update-attempt-2
-      if: steps.update-attempt-1.outcome == 'failure'
-      run: |
-        echo "Retrying with basic script..."
-        python scripts/update_contributions.py
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      continue-on-error: true
-    
-    - name: Update README with contributions (Attempt 3)
-      id: update-attempt-3
-      if: steps.update-attempt-2.outcome == 'failure'
-      run: |
-        echo "Final attempt with manual fallback..."
-        # Create a simple update with current timestamp
-        sed -i 's/Last updated:.*/Last updated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")/' README.md
-      continue-on-error: true
-    
-    - name: Check if README was updated
-      id: check-update
-      run: |
-        if git diff --quiet README.md; then
-          echo "No changes detected in README.md"
-          echo "updated=false" >> $GITHUB_OUTPUT
-        else
-          echo "README.md has been updated"
-          echo "updated=true" >> $GITHUB_OUTPUT
-        fi
-    
+      run: python scripts/update_contributions_advanced.py
+        
     - name: Commit and push changes
-      if: steps.check-update.outputs.updated == 'true'
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add README.md
-        git commit -m "Update repository contributions [skip ci]
-
-        - Auto-updated by GitHub Action
-        - Timestamp: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
-        - Repository: ${{ github.repository }}"
+        git diff --quiet && git diff --staged --quiet || git commit -m "Update repository contributions [skip ci]"
         git push
-    
-    - name: Restore backup on failure
-      if: failure() && steps.check-update.outputs.updated == 'false'
-      run: |
-        echo "Restoring README from backup..."
-        cp README.md.backup README.md
-        git add README.md
-        git commit -m "Restore README from backup after failed update [skip ci]"
-        git push
-    
-    - name: Create summary
-      if: always()
-      run: |
-        echo "## Update Summary" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "- **Repository**: ${{ github.repository }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **Run Time**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> $GITHUB_STEP_SUMMARY
-        echo "- **Status**: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **README Updated**: ${{ steps.check-update.outputs.updated }}" >> $GITHUB_STEP_SUMMARY
-        
-        if [ "${{ steps.update-attempt-1.outcome }}" = "success" ]; then
-          echo "- **Method**: Advanced GraphQL API" >> $GITHUB_STEP_SUMMARY
-        elif [ "${{ steps.update-attempt-2.outcome }}" = "success" ]; then
-          echo "- **Method**: Basic REST API (fallback)" >> $GITHUB_STEP_SUMMARY
-        elif [ "${{ steps.update-attempt-3.outcome }}" = "success" ]; then
-          echo "- **Method**: Manual timestamp update (fallback)" >> $GITHUB_STEP_SUMMARY
-        else
-          echo "- **Method**: All attempts failed" >> $GITHUB_STEP_SUMMARY
-        fi
