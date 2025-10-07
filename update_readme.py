@@ -55,7 +55,7 @@ def get_user_issues_prs_count(owner: str, repo: str, username: str, token: Optio
     data = make_github_request(url, token)
     
     if data and 'total_count' in data:
-        print(f"   - Found {data['total_count']} issues/PRs by {username} in {owner}/{repo}")
+        print(f"   - Found {data['total_count']} issues/PRs by {username} in {owner}/{repo}, from {url}")
         return data['total_count']
     
     return 0
