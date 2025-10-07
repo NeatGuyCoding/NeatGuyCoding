@@ -1,0 +1,109 @@
+name: Auto Update README.md
+
+on:
+  push:
+    branches: [ main ]
+  
+  workflow_dispatch:
+    inputs:
+      force_update:
+        description: 'Force update even if no changes detected'
+        required: false
+        default: 'false'
+        type: boolean
+  schedule:
+    - cron: '0 0 * * *'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Cache Python dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Backup current README.md
+      run: |
+        cp README.md README.md.backup
+    
+    - name: Generate new README.md
+      run: |
+        python update_readme.py
+    
+    - name: Check if README.md has changed
+      id: check-changes
+      run: |
+        if git diff --quiet README.md; then
+          echo "changed=false" >> $GITHUB_OUTPUT
+          echo "No changes detected in README.md"
+        else
+          echo "changed=true" >> $GITHUB_OUTPUT
+          echo "Changes detected in README.md"
+          echo "Diff:"
+          git diff README.md
+        fi
+    
+    - name: Create commit and push changes
+      if: steps.check-changes.outputs.changed == 'true' || github.event.inputs.force_update == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        git add README.md
+        
+        COMMIT_MSG="🤖 Auto-update README.md
+
+        - Updated by GitHub Actions
+        - Generated from config.yaml
+        - Triggered by: ${{ github.event_name }}
+        - Workflow run: ${{ github.run_id }}
+        - Timestamp: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+        
+        Changes:
+        $(git diff --cached --stat)"
+        
+        git commit -m "$COMMIT_MSG"
+        git push
+    
+    - name: Create summary
+      if: always()
+      run: |
+        echo "## README.md Update Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **Trigger**: ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Branch**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Workflow Run**: ${{ github.run_id }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Timestamp**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ "${{ steps.check-changes.outputs.changed }}" == "true" ]; then
+          echo "✅ **Status**: README.md updated successfully" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "ℹ️ **Status**: No changes detected in README.md" >> $GITHUB_STEP_SUMMARY
+        fi
