@@ -49,20 +49,9 @@ def make_github_request(url: str, token: Optional[str] = None) -> Optional[Dict]
         return None
 
 
-def get_user_issues_count(owner: str, repo: str, username: str, token: Optional[str] = None) -> int:
-    """Get the number of issues created by the user in the repository"""
-    url = f"https://api.github.com/search/issues?q=repo:{owner}/{repo}+author:{username}+type:issue"
-    data = make_github_request(url, token)
-    
-    if data and 'total_count' in data:
-        return data['total_count']
-    
-    return 0
-
-
-def get_user_prs_count(owner: str, repo: str, username: str, token: Optional[str] = None) -> int:
+def get_user_issues_prs_count(owner: str, repo: str, username: str, token: Optional[str] = None) -> int:
     """Get the number of pull requests created by the user in the repository"""
-    url = f"https://api.github.com/search/issues?q=repo:{owner}/{repo}+author:{username}+type:pr"
+    url = f"https://api.github.com/search/issues?q=repo:{owner}/{repo}+author:{username}"
     data = make_github_request(url, token)
     
     if data and 'total_count' in data:
@@ -76,14 +65,12 @@ def get_repository_stats(owner: str, repo: str, username: str, token: Optional[s
     print(f"📊 Fetching stats for {owner}/{repo}...")
     
     # Add small delay to respect rate limits
-    time.sleep(0.5)
+    time.sleep(1)
     
-    issues_count = get_user_issues_count(owner, repo, username, token)
-    prs_count = get_user_prs_count(owner, repo, username, token)
+    issues_prs_count = get_user_issues_prs_count(owner, repo, username, token)
     
     return {
-        'issues': issues_count,
-        'prs': prs_count
+        'issues_prs_count': issues_prs_count,
     }
 
 
@@ -238,13 +225,11 @@ def generate_repository_contributions_section(config: Dict) -> str:
         
         # Get user's issues and PRs count from GitHub API
         stats = get_repository_stats(repo_owner, repo_actual_name, username, token)
-        issues_count = stats['issues']
-        prs_count = stats['prs']
+        issues_prs_count = stats['issues_prs_count']
         
         # Generate Issues and PRs badges
-        issues_badge = f"![My Issues](https://img.shields.io/badge/Issues-{issues_count}-blue?style=flat-square&labelColor=343b41)"
-        prs_badge = f"![My PRs](https://img.shields.io/badge/PRs-{prs_count}-green?style=flat-square&labelColor=343b41)"
-        
+        issues_badge = f"![My Issues + PRs Count](https://img.shields.io/badge/Issues-{issues_prs_count}-blue?style=flat-square&labelColor=343b41)"
+
         # Generate contribution link
         contribution_type = repo.get('contribution_type', 'issues')
         if contribution_type == 'commits':
