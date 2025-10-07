@@ -220,16 +220,16 @@ def generate_repository_contributions_section(config: Dict) -> str:
             tech_badges.append(badge)
         tech_badges_text = " ".join(tech_badges)
         
-        # Generate Stars and Forks badges
-        stars_badge = f"![Stars](https://img.shields.io/github/stars/{repo_owner}/{repo_actual_name}?style=flat-square&labelColor=343b41)"
-        forks_badge = f"![Forks](https://img.shields.io/github/forks/{repo_owner}/{repo_actual_name}?style=flat-square&labelColor=343b41)"
+        # Generate Stars and Forks badges with attractive colors
+        stars_badge = f"![Stars](https://img.shields.io/github/stars/{repo_owner}/{repo_actual_name}?style=flat-square&labelColor=FFD700&color=FFA500)"
+        forks_badge = f"![Forks](https://img.shields.io/github/forks/{repo_owner}/{repo_actual_name}?style=flat-square&labelColor=00CED1&color=20B2AA)"
         
         # Get user's issues and PRs count from GitHub API
         stats = get_repository_stats(repo_owner, repo_actual_name, username, token)
         issues_prs_count = stats['issues_prs_count']
         
-        # Generate Issues and PRs badges
-        issues_prs_badge = f"![My Issues + PRs Count](https://img.shields.io/badge/Contributions-{issues_prs_count}-blue?style=flat-square&labelColor=343b41)"
+        # Generate Issues and PRs badges with attractive color
+        issues_prs_badge = f"![Issues+PRs](https://img.shields.io/badge/Issues+PRs-{issues_prs_count}-purple?style=flat-square&logoColor=white&labelColor=8A2BE2&color=9370DB)"
 
         # Generate contribution link
         contribution_type = repo.get('contribution_type', 'issues')
