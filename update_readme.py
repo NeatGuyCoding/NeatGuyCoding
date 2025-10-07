@@ -7,13 +7,84 @@ Specifically designed for updating README.md in GitHub Actions environment
 import yaml
 import os
 import sys
-from typing import Dict
+import requests
+import time
+from typing import Dict, Optional
 
 
 def load_config(config_path: str) -> Dict:
     """Load configuration file"""
     with open(config_path, 'r', encoding='utf-8') as file:
         return yaml.safe_load(file)
+
+
+def get_github_token() -> Optional[str]:
+    """Get GitHub token from environment variables"""
+    return os.getenv('GITHUB_TOKEN') or os.getenv('GH_TOKEN')
+
+
+def make_github_request(url: str, token: Optional[str] = None) -> Optional[Dict]:
+    """Make a request to GitHub API with rate limiting"""
+    headers = {
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'README-Generator/1.0'
+    }
+    
+    if token:
+        headers['Authorization'] = f'token {token}'
+    
+    try:
+        response = requests.get(url, headers=headers, timeout=10)
+        
+        # Handle rate limiting
+        if response.status_code == 403 and 'rate limit' in response.text.lower():
+            print("⚠️ GitHub API rate limit reached, using cached data")
+            return None
+        
+        response.raise_for_status()
+        return response.json()
+    
+    except requests.exceptions.RequestException as e:
+        print(f"⚠️ GitHub API request failed: {e}")
+        return None
+
+
+def get_user_issues_count(owner: str, repo: str, username: str, token: Optional[str] = None) -> int:
+    """Get the number of issues created by the user in the repository"""
+    url = f"https://api.github.com/search/issues?q=repo:{owner}/{repo}+author:{username}+type:issue"
+    data = make_github_request(url, token)
+    
+    if data and 'total_count' in data:
+        return data['total_count']
+    
+    return 0
+
+
+def get_user_prs_count(owner: str, repo: str, username: str, token: Optional[str] = None) -> int:
+    """Get the number of pull requests created by the user in the repository"""
+    url = f"https://api.github.com/search/issues?q=repo:{owner}/{repo}+author:{username}+type:pr"
+    data = make_github_request(url, token)
+    
+    if data and 'total_count' in data:
+        return data['total_count']
+    
+    return 0
+
+
+def get_repository_stats(owner: str, repo: str, username: str, token: Optional[str] = None) -> Dict[str, int]:
+    """Get user's issues and PRs count for a repository"""
+    print(f"📊 Fetching stats for {owner}/{repo}...")
+    
+    # Add small delay to respect rate limits
+    time.sleep(0.5)
+    
+    issues_count = get_user_issues_count(owner, repo, username, token)
+    prs_count = get_user_prs_count(owner, repo, username, token)
+    
+    return {
+        'issues': issues_count,
+        'prs': prs_count
+    }
 
 
 def generate_typing_svg_url(config: Dict) -> str:
@@ -131,9 +202,16 @@ def generate_repository_contributions_section(config: Dict) -> str:
     title = repo_config['title']
     username = repo_config['username']
     
-    # Generate table header
-    table_header = f"""| Project                                                                      | Description                                                                                                                                                                                                                                     | Technologies                                                                                                                                                                                                                                                                                                                           | Stars                                                                                                               | Forks                                                                                                               | My Contributions                                                                                        |
-|------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|"""
+    # Get GitHub token for API requests
+    token = get_github_token()
+    if token:
+        print("🔑 Using GitHub token for API requests")
+    else:
+        print("⚠️ No GitHub token found, API requests will be rate limited")
+    
+    # Generate table header with new columns
+    table_header = f"""| Project                                                                      | Description                                                                                                                                                                                                                                     | Technologies                                                                                                                                                                                                                                                                                                                           | Stars                                                                                                               | Forks                                                                                                               | Issues                                                                                                              | PRs                                                                                                                 | My Contributions                                                                                        |
+|------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|"""
     
     # Generate table rows
     table_rows = []
@@ -158,6 +236,15 @@ def generate_repository_contributions_section(config: Dict) -> str:
         stars_badge = f"![Stars](https://img.shields.io/github/stars/{repo_owner}/{repo_actual_name}?style=flat-square&labelColor=343b41)"
         forks_badge = f"![Forks](https://img.shields.io/github/forks/{repo_owner}/{repo_actual_name}?style=flat-square&labelColor=343b41)"
         
+        # Get user's issues and PRs count from GitHub API
+        stats = get_repository_stats(repo_owner, repo_actual_name, username, token)
+        issues_count = stats['issues']
+        prs_count = stats['prs']
+        
+        # Generate Issues and PRs badges
+        issues_badge = f"![My Issues](https://img.shields.io/badge/Issues-{issues_count}-blue?style=flat-square&labelColor=343b41)"
+        prs_badge = f"![My PRs](https://img.shields.io/badge/PRs-{prs_count}-green?style=flat-square&labelColor=343b41)"
+        
         # Generate contribution link
         contribution_type = repo.get('contribution_type', 'issues')
         if contribution_type == 'commits':
@@ -165,8 +252,8 @@ def generate_repository_contributions_section(config: Dict) -> str:
         else:
             contribution_link = f"[My Contribution](https://github.com/{repo_owner}/{repo_actual_name}/issues?q=author%3A{username})"
         
-        # Generate table row
-        row = f"| {project_link:<70} | {description:<200} | {tech_badges_text:<200} | {stars_badge:<50} | {forks_badge:<50} | {contribution_link:<50} |"
+        # Generate table row with new columns
+        row = f"| {project_link:<70} | {description:<200} | {tech_badges_text:<200} | {stars_badge:<50} | {forks_badge:<50} | {issues_badge:<50} | {prs_badge:<50} | {contribution_link:<50} |"
         table_rows.append(row)
     
     # Combine complete section

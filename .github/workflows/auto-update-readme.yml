@@ -52,6 +52,8 @@ jobs:
         cp README.md README.md.backup
     
     - name: Generate new README.md
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         python update_readme.py
     
