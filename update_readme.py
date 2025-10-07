@@ -10,6 +10,7 @@ import sys
 import requests
 import time
 from typing import Dict, Optional
+from datetime import datetime, timedelta
 
 
 def load_config(config_path: str) -> Dict:
@@ -59,6 +60,64 @@ def get_user_issues_prs_count(owner: str, repo: str, username: str, token: Optio
         return data['total_count']
     
     return 0
+
+
+def get_repository_activity(owner: str, repo: str, token: Optional[str] = None) -> Dict[str, str]:
+    """Get repository activity information"""
+    print(f"📈 Fetching activity for {owner}/{repo}...")
+    
+    # Get recent commits (last 30 days)
+    commits_url = f"https://api.github.com/repos/{owner}/{repo}/commits?since={(datetime.now() - timedelta(days=30)).isoformat()}&per_page=100"
+    commits_data = make_github_request(commits_url, token)
+    
+    recent_commits = 0
+    if commits_data and isinstance(commits_data, list):
+        recent_commits = len(commits_data)
+    
+    # Get recent issues (last 30 days)
+    issues_url = f"https://api.github.com/search/issues?q=repo:{owner}/{repo}+is:issue+created:>{(datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')}"
+    issues_data = make_github_request(issues_url, token)
+    
+    recent_issues = 0
+    if issues_data and 'total_count' in issues_data:
+        recent_issues = issues_data['total_count']
+    
+    # Get recent PRs (last 30 days)
+    prs_url = f"https://api.github.com/search/issues?q=repo:{owner}/{repo}+is:pr+created:>{(datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')}"
+    prs_data = make_github_request(prs_url, token)
+    
+    recent_prs = 0
+    if prs_data and 'total_count' in prs_data:
+        recent_prs = prs_data['total_count']
+    
+    # Calculate activity score
+    activity_score = recent_commits + recent_issues + recent_prs
+    
+    # Determine activity level
+    if activity_score >= 50:
+        activity_level = "🔥 Very Active"
+        activity_color = "FF4500"  # Orange Red
+    elif activity_score >= 20:
+        activity_level = "⚡ Active"
+        activity_color = "32CD32"  # Lime Green
+    elif activity_score >= 5:
+        activity_level = "📈 Moderate"
+        activity_color = "FFD700"  # Gold
+    elif activity_score > 0:
+        activity_level = "🐌 Low"
+        activity_color = "87CEEB"  # Sky Blue
+    else:
+        activity_level = "💤 Dormant"
+        activity_color = "D3D3D3"  # Light Gray
+    
+    return {
+        'level': activity_level,
+        'color': activity_color,
+        'commits': str(recent_commits),
+        'issues': str(recent_issues),
+        'prs': str(recent_prs),
+        'score': str(activity_score)
+    }
 
 
 def get_repository_stats(owner: str, repo: str, username: str, token: Optional[str] = None) -> Dict[str, int]:
@@ -197,9 +256,9 @@ def generate_repository_contributions_section(config: Dict) -> str:
     else:
         print("⚠️ No GitHub token found, API requests will be rate limited")
     
-    # Generate table header with new columns
-    table_header = f"""| Project                                                                      | Description                                                                                                                                                                                                                                     | Technologies                                                                                                                                                                                                                                                                                                                           | Stars                                                                                                               | Forks                                                                                                               | My Issues + PRs                                                                                                              | My Contributions                                                                                        |
-|------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|"""
+        # Generate table header with new columns
+        table_header = f"""| Project                                                                      | Description                                                                                                                                                                                                                                     | Technologies                                                                                                                                                                                                                                                                                                                           | Activity (30d)                                                                                                    | Stars                                                                                                               | Forks                                                                                                               | My Issues + PRs                                                                                                              | My Contributions                                                                                        |
+|------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|"""
     
     # Generate table rows
     table_rows = []
@@ -220,6 +279,10 @@ def generate_repository_contributions_section(config: Dict) -> str:
             tech_badges.append(badge)
         tech_badges_text = " ".join(tech_badges)
         
+        # Get repository activity information
+        activity_info = get_repository_activity(repo_owner, repo_actual_name, token)
+        activity_badge = f"![Activity](https://img.shields.io/badge/{activity_info['level'].replace(' ', '%20')}-{activity_info['score']}-{activity_info['color']}?style=flat-square&logoColor=white)"
+        
         # Generate Stars and Forks badges with attractive colors
         stars_badge = f"![Stars](https://img.shields.io/github/stars/{repo_owner}/{repo_actual_name}?style=flat-square&labelColor=FFD700&color=FFA500)"
         forks_badge = f"![Forks](https://img.shields.io/github/forks/{repo_owner}/{repo_actual_name}?style=flat-square&labelColor=00CED1&color=20B2AA)"
@@ -230,7 +293,7 @@ def generate_repository_contributions_section(config: Dict) -> str:
         
         # Generate Issues and PRs badges with attractive color
         issues_prs_badge = f"![Issues+PRs](https://img.shields.io/badge/cont-{issues_prs_count}-purple?style=flat-square&logoColor=white&labelColor=8A2BE2&color=9370DB)"
-
+        
         # Generate contribution link
         contribution_type = repo.get('contribution_type', 'issues')
         if contribution_type == 'commits':
@@ -239,7 +302,7 @@ def generate_repository_contributions_section(config: Dict) -> str:
             contribution_link = f"[My Contribution](https://github.com/{repo_owner}/{repo_actual_name}/issues?q=author%3A{username})"
         
         # Generate table row with new columns
-        row = f"| {project_link:<70} | {description:<200} | {tech_badges_text:<200} | {stars_badge:<50} | {forks_badge:<50} | {issues_prs_badge:<50} | {contribution_link:<50} |"
+        row = f"| {project_link:<70} | {description:<200} | {tech_badges_text:<200} | {activity_badge:<50} | {stars_badge:<50} | {forks_badge:<50} | {issues_prs_badge:<50} | {contribution_link:<50} |"
         table_rows.append(row)
     
     # Combine complete section
