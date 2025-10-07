@@ -55,6 +55,7 @@ def get_user_issues_prs_count(owner: str, repo: str, username: str, token: Optio
     data = make_github_request(url, token)
     
     if data and 'total_count' in data:
+        print(f"   - Found {data['total_count']} issues/PRs by {username} in {owner}/{repo}")
         return data['total_count']
     
     return 0
@@ -197,8 +198,8 @@ def generate_repository_contributions_section(config: Dict) -> str:
         print("⚠️ No GitHub token found, API requests will be rate limited")
     
     # Generate table header with new columns
-    table_header = f"""| Project                                                                      | Description                                                                                                                                                                                                                                     | Technologies                                                                                                                                                                                                                                                                                                                           | Stars                                                                                                               | Forks                                                                                                               | Issues                                                                                                              | PRs                                                                                                                 | My Contributions                                                                                        |
-|------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|"""
+    table_header = f"""| Project                                                                      | Description                                                                                                                                                                                                                                     | Technologies                                                                                                                                                                                                                                                                                                                           | Stars                                                                                                               | Forks                                                                                                               | Issues + PRs                                                                                                              | My Contributions                                                                                        |
+|------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|"""
     
     # Generate table rows
     table_rows = []
@@ -228,7 +229,7 @@ def generate_repository_contributions_section(config: Dict) -> str:
         issues_prs_count = stats['issues_prs_count']
         
         # Generate Issues and PRs badges
-        issues_badge = f"![My Issues + PRs Count](https://img.shields.io/badge/Issues-{issues_prs_count}-blue?style=flat-square&labelColor=343b41)"
+        issues_prs_badge = f"![My Issues + PRs Count](https://img.shields.io/badge/Contributions-{issues_prs_count}-blue?style=flat-square&labelColor=343b41)"
 
         # Generate contribution link
         contribution_type = repo.get('contribution_type', 'issues')
@@ -238,7 +239,7 @@ def generate_repository_contributions_section(config: Dict) -> str:
             contribution_link = f"[My Contribution](https://github.com/{repo_owner}/{repo_actual_name}/issues?q=author%3A{username})"
         
         # Generate table row with new columns
-        row = f"| {project_link:<70} | {description:<200} | {tech_badges_text:<200} | {stars_badge:<50} | {forks_badge:<50} | {issues_badge:<50} | {contribution_link:<50} |"
+        row = f"| {project_link:<70} | {description:<200} | {tech_badges_text:<200} | {stars_badge:<50} | {forks_badge:<50} | {issues_prs_badge:<50} | {contribution_link:<50} |"
         table_rows.append(row)
     
     # Combine complete section
