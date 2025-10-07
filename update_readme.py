@@ -229,7 +229,7 @@ def generate_repository_contributions_section(config: Dict) -> str:
         issues_prs_count = stats['issues_prs_count']
         
         # Generate Issues and PRs badges with attractive color
-        issues_prs_badge = f"![Issues+PRs](https://img.shields.io/badge/Issues+PRs-{issues_prs_count}-purple?style=flat-square&logoColor=white&labelColor=8A2BE2&color=9370DB)"
+        issues_prs_badge = f"![Issues+PRs](https://img.shields.io/badge/cont-{issues_prs_count}-purple?style=flat-square&logoColor=white&labelColor=8A2BE2&color=9370DB)"
 
         # Generate contribution link
         contribution_type = repo.get('contribution_type', 'issues')
