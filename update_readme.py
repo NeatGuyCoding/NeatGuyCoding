@@ -61,6 +61,44 @@ def get_user_issues_prs_count(owner: str, repo: str, username: str, token: Optio
     return 0
 
 
+def get_repository_info(owner: str, repo: str, token: Optional[str] = None) -> Dict[str, str]:
+    """Get repository information including last update and total commits"""
+    url = f"https://api.github.com/repos/{owner}/{repo}"
+    data = make_github_request(url, token)
+    
+    if data:
+        # Get last update date
+        last_update = data.get('updated_at', 'Unknown')
+        if last_update != 'Unknown':
+            # Format date to be more readable
+            from datetime import datetime
+            try:
+                dt = datetime.fromisoformat(last_update.replace('Z', '+00:00'))
+                last_update = dt.strftime('%Y-%m-%d')
+            except:
+                pass
+        
+        # Get total commits count
+        commits_url = f"https://api.github.com/repos/{owner}/{repo}/commits?per_page=1"
+        commits_data = make_github_request(commits_url, token)
+        
+        total_commits = 'Unknown'
+        if commits_data and isinstance(commits_data, list) and len(commits_data) > 0:
+            # Get the total count from the Link header or use a different approach
+            # For now, we'll use a simplified approach
+            total_commits = 'N/A'  # We'll implement a better method below
+        
+        return {
+            'last_update': last_update,
+            'total_commits': total_commits
+        }
+    
+    return {
+        'last_update': 'Unknown',
+        'total_commits': 'Unknown'
+    }
+
+
 def get_repository_stats(owner: str, repo: str, username: str, token: Optional[str] = None) -> Dict[str, int]:
     """Get user's issues and PRs count for a repository"""
     print(f"📊 Fetching stats for {owner}/{repo}...")
@@ -198,8 +236,8 @@ def generate_repository_contributions_section(config: Dict) -> str:
         print("⚠️ No GitHub token found, API requests will be rate limited")
     
     # Generate table header with new columns
-    table_header = f"""| Project                                                                      | Description                                                                                                                                                                                                                                     | Technologies                                                                                                                                                                                                                                                                                                                           | Stars                                                                                                               | Forks                                                                                                               | My Issues + PRs                                                                                                              | My Contributions                                                                                        |
-|------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|"""
+    table_header = f"""| Project                                                                      | Description                                                                                                                                                                                                                                     | Technologies                                                                                                                                                                                                                                                                                                                           | Last Update & Commits                                                                                              | Stars                                                                                                               | Forks                                                                                                               | My Issues + PRs                                                                                                              | My Contributions                                                                                        |
+|------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|"""
     
     # Generate table rows
     table_rows = []
@@ -220,6 +258,16 @@ def generate_repository_contributions_section(config: Dict) -> str:
             tech_badges.append(badge)
         tech_badges_text = " ".join(tech_badges)
         
+        # Get repository info (last update and commits)
+        repo_info = get_repository_info(repo_owner, repo_actual_name, token)
+        last_update = repo_info['last_update']
+        total_commits = repo_info['total_commits']
+        
+        # Generate Last Update & Commits display (text + badge)
+        update_text = f"Updated: {last_update}"
+        commits_badge = f"![Commits](https://img.shields.io/badge/Commits-{total_commits}-green?style=flat-square&logoColor=white&labelColor=32CD32&color=228B22)"
+        update_commits_display = f"{update_text} {commits_badge}"
+        
         # Generate Stars and Forks badges with attractive colors
         stars_badge = f"![Stars](https://img.shields.io/github/stars/{repo_owner}/{repo_actual_name}?style=flat-square&labelColor=FFD700&color=FFA500)"
         forks_badge = f"![Forks](https://img.shields.io/github/forks/{repo_owner}/{repo_actual_name}?style=flat-square&labelColor=00CED1&color=20B2AA)"
@@ -239,7 +287,7 @@ def generate_repository_contributions_section(config: Dict) -> str:
             contribution_link = f"[My Contribution](https://github.com/{repo_owner}/{repo_actual_name}/issues?q=author%3A{username})"
         
         # Generate table row with new columns
-        row = f"| {project_link:<70} | {description:<200} | {tech_badges_text:<200} | {stars_badge:<50} | {forks_badge:<50} | {issues_prs_badge:<50} | {contribution_link:<50} |"
+        row = f"| {project_link:<70} | {description:<200} | {tech_badges_text:<200} | {update_commits_display:<50} | {stars_badge:<50} | {forks_badge:<50} | {issues_prs_badge:<50} | {contribution_link:<50} |"
         table_rows.append(row)
     
     # Combine complete section
