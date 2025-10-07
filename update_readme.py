@@ -238,7 +238,7 @@ def generate_repository_contributions_section(config: Dict) -> str:
             contribution_link = f"[My Contribution](https://github.com/{repo_owner}/{repo_actual_name}/issues?q=author%3A{username})"
         
         # Generate table row with new columns
-        row = f"| {project_link:<70} | {description:<200} | {tech_badges_text:<200} | {stars_badge:<50} | {forks_badge:<50} | {issues_badge:<50} | {prs_badge:<50} | {contribution_link:<50} |"
+        row = f"| {project_link:<70} | {description:<200} | {tech_badges_text:<200} | {stars_badge:<50} | {forks_badge:<50} | {issues_badge:<50} | {contribution_link:<50} |"
         table_rows.append(row)
     
     # Combine complete section
