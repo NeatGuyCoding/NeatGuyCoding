@@ -66,8 +66,8 @@ def get_repository_activity(owner: str, repo: str, token: Optional[str] = None) 
     """Get repository activity information"""
     print(f"📈 Fetching activity for {owner}/{repo}...")
 
-    # Get recent commits (last 30 days)
-    commits_url = f"https://api.github.com/repos/{owner}/{repo}/commits?since={(datetime.now() - timedelta(days=30)).isoformat()}&per_page=100"
+    # Get recent commits (last 7 days)
+    commits_url = f"https://api.github.com/repos/{owner}/{repo}/commits?since={(datetime.now() - timedelta(days=7)).isoformat()}&per_page=500"
     commits_data = make_github_request(commits_url, token)
 
     # Add small delay to respect rate limits
@@ -81,10 +81,10 @@ def get_repository_activity(owner: str, repo: str, token: Optional[str] = None) 
     activity_score = recent_commits
     
     # Determine activity level
-    if activity_score >= 50:
+    if activity_score >= 25:
         activity_level = "🔥 Very Active"
         activity_color = "FF4500"  # Orange Red
-    elif activity_score >= 20:
+    elif activity_score >= 12:
         activity_level = "⚡ Active"
         activity_color = "32CD32"  # Lime Green
     elif activity_score >= 5:
@@ -242,7 +242,7 @@ def generate_repository_contributions_section(config: Dict) -> str:
         print("⚠️ No GitHub token found, API requests will be rate limited")
     
         # Generate table header with new columns
-    table_header = f"""| Project                                                                      | Description                                                                                                                                                                                                                                     | Technologies                                                                                                                                                                                                                                                                                                                           | Activity (30d)                                                                                                    | Stars                                                                                                               | My Issues + PRs                                                                                                              | My Contributions                                                                                        |
+    table_header = f"""| Project                                                                      | Description                                                                                                                                                                                                                                     | Technologies                                                                                                                                                                                                                                                                                                                           | Activity (7d)                                                                                                    | Stars                                                                                                               | My Issues + PRs                                                                                                              | My Contributions                                                                                        |
 |------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|"""
     
     # Generate table rows
