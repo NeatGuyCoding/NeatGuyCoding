@@ -626,7 +626,7 @@ repository_contributions:
           logoColor: "white"
       contribution_type: "issues"
     - name: "Netty Socketio (Active Fork)"
-      owner: "NeatGuyCoding"
+      owner: "socketio4j"
       repo_name: "netty-socketio"
       description: "Socket.IO server implemented on Java. Realtime java framework"
       technologies:
